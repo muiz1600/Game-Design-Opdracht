@@ -9,38 +9,33 @@ public class PlayerScore : MonoBehaviour
 
     private float timeLeft = 60f;
     public int score = 0;
+    public int endScore = 0;
     public GameObject timeLeftUI;
     public GameObject scoreUI;
+   
 
     void Update()
     {
-        Debug.Log(timeLeft);
-        timeLeft -= Time.deltaTime;
-        timeLeftUI.gameObject.GetComponent<Text>().text = ("Time left: " + (int)timeLeft);
-        scoreUI.gameObject.GetComponent<Text>().text = ("Score: " + score);
+        if (timeLeft >= 0.1f)
+        {
+            Debug.Log(timeLeft);
+            timeLeft -= Time.deltaTime;
+            timeLeftUI.gameObject.GetComponent<Text>().text = ("Time left: " + (int)timeLeft);
+            scoreUI.gameObject.GetComponent<Text>().text = ("Score: " + score);
+        }
         if (timeLeft < 0.1f)
         {
-            SceneManager.LoadScene("prototype1"); //reset level
+            endScore = score;
+            PlayerPrefs.SetInt("endscore", endScore);
+            SceneManager.LoadScene("ending");
         }
     }
 
     void OnTriggerEnter2D(Collider2D trig)
     { //collison with level end
-        if (trig.gameObject.name == "EndLevel")
-        {
-            CountScore();
-        }
-        if (trig.gameObject.tag == "Coin")
-        {
-            score = score + 50;
-            Destroy(trig.gameObject);
-        }
+        
 
     }
-
-    void CountScore()
-    {
-        score = score + (int)(timeLeft * 10);
-        Debug.Log(score);
-    }
+    
+   
 }

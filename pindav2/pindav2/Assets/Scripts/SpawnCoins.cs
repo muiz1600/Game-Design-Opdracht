@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SpawnCoins : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class SpawnCoins : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        
         Spawn();
     }
 
@@ -20,7 +21,10 @@ public class SpawnCoins : MonoBehaviour
         {
             int coinFlip = Random.Range(0, 2);
             if (coinFlip > 0)
-                Instantiate(coin, coinSpawns[i].position, Quaternion.identity);
+            {
+                GameObject coin1 = Instantiate(coin, coinSpawns[i].position, Quaternion.identity);
+            }
+            
         }
     }
 
